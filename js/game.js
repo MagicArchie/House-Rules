@@ -419,26 +419,29 @@ function endGame(type) {
   setCrosshairInteractable(false);
 
   const endScreen = document.querySelector("#end-screen");
-  const endImage = document.querySelector("#end-image");
+  const endTitle = document.querySelector("#end-title");
   const endMessage = document.querySelector("#end-message");
 
-  if (!endScreen || !endImage || !endMessage) return;
+  if (!endScreen || !endTitle || !endMessage) return;
 
   if (type === "victory-money") {
-    endImage.src = "materials/images/Victory Image.png";
+    endTitle.textContent = "YOU ESCAPED";
+    endTitle.className = "end-title end-title--victory";
     endMessage.textContent =
-      "You escaped with $" + playerMoney.toLocaleString() + " money";
+      "You got away with $" + playerMoney.toLocaleString();
   }
 
   if (type === "victory-no-money") {
-    endImage.src = "materials/images/NoMoney Image.png";
+    endTitle.textContent = "YOU ESCAPED";
+    endTitle.className = "end-title end-title--victory";
     endMessage.textContent = "Well, that is sad.";
   }
 
   if (type === "defeat") {
-    endImage.src = "materials/images/Defeat Image.png";
+    endTitle.textContent = "CAUGHT";
+    endTitle.className = "end-title end-title--defeat";
     endMessage.textContent =
-      "You were caught with $" + playerMoney.toLocaleString() + " money";
+      "You were caught with $" + playerMoney.toLocaleString();
   }
 
   endScreen.classList.remove("hud-hidden");

@@ -202,9 +202,30 @@
 }
 
 .end-screen img {
-  width: clamp(180px, 22vw, 360px);
-  height: auto;
-  margin-bottom: 24px;
+  display: none;
+}
+
+#end-title,
+.end-title {
+  font-size: clamp(52px, 7vw, 110px);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 28px;
+
+  text-shadow:
+    0 0 30px currentColor,
+    0 0 60px currentColor,
+    0 0 4px rgba(0, 0, 0, 0.9);
+}
+
+.end-title--victory {
+  color: var(--hud-green);
+}
+
+.end-title--defeat {
+  color: #ff3b3b;
 }
 
 #end-message {
