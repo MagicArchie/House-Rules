@@ -157,11 +157,11 @@ function updateTokenHUD() {
 
   if (hasCasinoToken) {
     tokenName.innerHTML = "CASINO<br>TOKEN";
-    tokenIcon.src = "materials/images/CasinoToken Icon.png";
+    tokenIcon.src = "materials/images/HUD/CasinoToken Icon.png";
     tokenPanel.classList.add("hud-panel--active");
   } else {
     tokenName.textContent = "NOT FOUND";
-    tokenIcon.src = "materials/images/SecretItem Icon.png";
+    tokenIcon.src = "materials/images/HUD/SecretItem Icon.png";
     tokenPanel.classList.remove("hud-panel--active");
   }
 }
@@ -174,7 +174,7 @@ function setCasinoTokenUsedHUD() {
   if (!tokenName || !tokenIcon || !tokenPanel) return;
 
   tokenName.innerHTML = "TOKEN<br>USED";
-  tokenIcon.src = "materials/images/CasinoToken Used.png";
+  tokenIcon.src = "materials/images/HUD/CasinoToken Used.png";
   tokenPanel.classList.remove("hud-panel--active");
 }
 
@@ -244,7 +244,7 @@ function showEscapePrompt() {
   const interactionIcon = document.querySelector(".hud-interaction-action img");
 
   if (interactionIcon) {
-    interactionIcon.src = "materials/images/E Key.png";
+    interactionIcon.src = "materials/images/HUD/E Key.png";
     interactionIcon.classList.add("hud-interaction-icon--escape");
   }
 }

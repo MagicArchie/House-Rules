@@ -14,67 +14,93 @@
   <body>
 	<a-assets>
 	  <!-- Asset Group: Environment Models -->
-	  <a-asset-item id="map" src="materials/models/CasinoMap-Building.glb">
+	  <a-asset-item id="map" src="materials/models/mainMap/CasinoMap-Building.glb">
 	  </a-asset-item>
 	  <a-asset-item
 		id="map-decoration"
-		src="materials/models/CasinoMap-Decoration.glb"
+		src="materials/models/mainMap/CasinoMap-Decoration.glb"
 	  >
 	  </a-asset-item>
 
-	  <a-asset-item id="vault" src="materials/models/CasinoVault-Building.glb">
+	  <a-asset-item id="vault" src="materials/models/mainMap/CasinoVault-Building.glb">
 	  </a-asset-item>
 	  <a-asset-item
 		id="vault-decoration"
-		src="materials/models/CasinoVault-Decoration.glb"
+		src="materials/models/mainMap/CasinoVault-Decoration.glb"
 	  >
 	  </a-asset-item>
 
-	  <a-asset-item id="tables-chairs" src="materials/models/Tables&Chairs.glb">
+	  <a-asset-item id="tables-chairs" src="materials/models/mainMap/Tables&Chairs.glb">
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="chip-stack-01-model"
-		src="materials/models/TableChips-011.glb"
+		src="materials/models/valuables/casinoChips/TableChips-011.glb"
 	  >
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="chip-stack-02-model"
-		src="materials/models/TableChips-012.glb"
+		src="materials/models/valuables/casinoChips/TableChips-012.glb"
 	  >
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="chip-stack-03-model"
-		src="materials/models/TableChips-021.glb"
+		src="materials/models/valuables/casinoChips/TableChips-021.glb"
 	  >
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="chip-stack-04-model"
-		src="materials/models/TableChips-041.glb"
+		src="materials/models/valuables/casinoChips/TableChips-041.glb"
 	  >
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="chip-stack-05-model"
-		src="materials/models/TableChips-042.glb"
+		src="materials/models/valuables/casinoChips/TableChips-042.glb"
 	  >
 	  </a-asset-item>
 
 	  <!-- Asset Group: Wheel of Fortune Models -->
 	  <a-asset-item
 		id="wheel-of-fortune-body"
-		src="materials/models/WheelOfFortune-Body.glb"
+		src="materials/models/fortuneWheel/WheelOfFortune-Body.glb"
 	  >
 	  </a-asset-item>
 
 	  <a-asset-item
 		id="wheel-of-fortune-wheel"
-		src="materials/models/WheelOfFortune-AnimatedPart.glb"
+		src="materials/models/fortuneWheel/WheelOfFortune-AnimatedPart.glb"
 	  >
 	  </a-asset-item>
+	  
+	  <!-- Asset Group: Slot Machine Models -->
+	  <a-asset-item
+		id="slot-machine-body-model"
+		src="materials/models/slotMachine/SlotMachine-Body.glb"
+	  ></a-asset-item>
+	  
+	  <a-asset-item
+		id="slot-machine-lever-model"
+		src="materials/models/slotMachine/SlotMachine-Lever.glb"
+	  ></a-asset-item>
+	  
+	  <a-asset-item
+		id="slot-machine-reel-01-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-01.glb"
+	  ></a-asset-item>
+	  
+	  <a-asset-item
+		id="slot-machine-reel-02-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-02.glb"
+	  ></a-asset-item>
+	  
+	  <a-asset-item
+		id="slot-machine-reel-03-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-03.glb"
+	  ></a-asset-item>
 	  
 	  <!-- Audio Group: -->
 	  <audio id="elevator-sound" src="materials/audio/Elevator.wav"></audio>
@@ -326,28 +352,6 @@
 		>
 		</a-cylinder>
 	  </a-entity>
-
-	  <!-- Asset Group: Slot Machine Models -->
-	  <a-asset-item
-		id="slot-machine-body-model"
-		src="materials/models/slotMachine/SlotMachine-Body.glb"
-	  ></a-asset-item>
-	  <a-asset-item
-		id="slot-machine-lever-model"
-		src="materials/models/slotMachine/SlotMachine-Lever.glb"
-	  ></a-asset-item>
-	  <a-asset-item
-		id="slot-machine-reel-01-model"
-		src="materials/models/slotMachine/SlotMachine-Reel-01.glb"
-	  ></a-asset-item>
-	  <a-asset-item
-		id="slot-machine-reel-02-model"
-		src="materials/models/slotMachine/SlotMachine-Reel-02.glb"
-	  ></a-asset-item>
-	  <a-asset-item
-		id="slot-machine-reel-03-model"
-		src="materials/models/slotMachine/SlotMachine-Reel-03.glb"
-	  ></a-asset-item>
 
 	  <!-- =========================
 		  LIGHTING
@@ -1431,7 +1435,7 @@
 	  <section class="hud-panel hud-panel--cash">
 		<img
 		  class="hud-icon hud-icon--cash"
-		  src="materials/images/Cash Icon.png"
+		  src="materials/images/HUD/Cash Icon.png"
 		  alt="Cash"
 		/>
 
@@ -1448,7 +1452,7 @@
 		  <img
 			id="token-icon"
 			class="hud-icon hud-icon--token"
-			src="materials/images/SecretItem Icon.png"
+			src="materials/images/HUD/SecretItem Icon.png"
 			alt="Secret Item"
 		  />
 
@@ -1462,7 +1466,7 @@
 		<div class="hud-objective-header">
 		  <img
 			class="hud-icon hud-icon--objective"
-			src="materials/images/Objective Icon.png"
+			src="materials/images/HUD/Objective Icon.png"
 			alt="Objective"
 		  />
 
@@ -1482,7 +1486,7 @@
 		  <li>
 			<img
 			  class="control-icon control-icon--wasd"
-			  src="materials/images/WASD Keys.png"
+			  src="materials/images/HUD/WASD Keys.png"
 			  alt="WASD"
 			/>
 			<span class="control-text control-text--move">- MOVE</span>
@@ -1491,7 +1495,7 @@
 		  <li>
 			<img
 			  class="control-icon control-icon--mouse"
-			  src="materials/images/Mouse.png"
+			  src="materials/images/HUD/Mouse.png"
 			  alt="Mouse"
 			/>
 			<span class="control-text control-text--look">- LOOK</span>
@@ -1500,7 +1504,7 @@
 		  <li>
 			<img
 			  class="control-icon control-icon--interact"
-			  src="materials/images/Interact.png"
+			  src="materials/images/HUD/Interact.png"
 			  alt="Interact"
 			/>
 			<span class="control-text control-text--interact">- INTERACT</span>
@@ -1509,7 +1513,7 @@
 		  <li>
 			<img
 			  class="control-icon control-icon--shift"
-			  src="materials/images/SHIFT Key.png"
+			  src="materials/images/HUD/SHIFT Key.png"
 			  alt="Shift"
 			/>
 			<span class="control-text control-text--sprint">- SPRINT</span>
@@ -1518,7 +1522,7 @@
 		  <li>
 			<img
 			  class="control-icon control-icon--ctrl"
-			  src="materials/images/CTRL Key.png"
+			  src="materials/images/HUD/CTRL Key.png"
 			  alt="Ctrl"
 			/>
 			<span class="control-text control-text--crouch">- CROUCH</span>
@@ -1540,7 +1544,7 @@
 		></div>
 
 		<div class="hud-interaction-action">
-		  <img src="materials/images/Interact.png" alt="Interact" />
+		  <img src="materials/images/HUD/Interact.png" alt="Interact" />
 		  <span id="interaction-action-text">PRESS E OR CLICK TO INTERACT</span>
 		</div>
 	  </section>
