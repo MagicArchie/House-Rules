@@ -1,0 +1,665 @@
+/* =========================================================
+   HOUSE RULES HUD SYSTEM
+   File: css/hud.css
+========================================================= */
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+
+:root {
+  --hud-gold: #d9a529;
+  --hud-gold-soft: rgba(217, 165, 41, 0.32);
+  --hud-green: #64ff4a;
+  --hud-white: #ffffff;
+  --hud-black-glass: rgba(5, 5, 5, 0.52);
+  --hud-black-glass-strong: rgba(5, 5, 5, 0.7);
+
+  --hud-border-size: clamp(1.5px, 0.15vw, 2.5px);
+  --hud-radius: clamp(5px, 0.45vw, 8px);
+  --hud-padding: clamp(12px, 1vw, 18px);
+
+  --hud-edge-x: clamp(18px, 2.2vw, 36px);
+  --hud-edge-y: clamp(18px, 2.4vh, 36px);
+
+  --hud-font: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   HUD ROOT
+========================= */
+
+#hud {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  font-family: var(--hud-font);
+}
+
+/* =========================
+   BASE PANEL STYLE
+========================= */
+
+.hud-panel {
+  position: absolute;
+  box-sizing: border-box;
+  padding: var(--hud-padding);
+
+  color: var(--hud-white);
+  background: var(--hud-black-glass);
+  border: var(--hud-border-size) solid var(--hud-gold);
+  border-radius: var(--hud-radius);
+
+  box-shadow:
+    0 0 18px rgba(0, 0, 0, 0.55),
+    inset 0 0 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 14px rgba(217, 165, 41, 0.07);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.hud-panel::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--hud-gold-soft),
+    transparent
+  );
+}
+
+.hud-panel--active {
+  box-shadow:
+    0 0 18px rgba(217, 165, 41, 0.38),
+    inset 0 0 14px rgba(217, 165, 41, 0.12);
+}
+
+.hud-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+}
+
+/* =========================
+   SHARED TEXT / ICONS
+========================= */
+
+.hud-panel__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hud-panel__label,
+.hud-panel__title {
+  color: var(--hud-gold);
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.hud-panel__label--center {
+  text-align: center;
+}
+
+.hud-panel__label--interaction {
+  color: var(--hud-gold);
+  font-size: clamp(20px, 1.9vw, 32px);
+  text-align: center;
+}
+
+.hud-panel__value {
+  margin-top: 10px;
+  color: var(--hud-green);
+  font-size: clamp(28px, 3vw, 50px);
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hud-panel__value--small {
+  color: var(--hud-white);
+  font-size: clamp(17px, 1.55vw, 25px);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.hud-panel__value--small strong,
+.hud-panel__value--small span {
+  color: var(--hud-green);
+}
+
+.hud-panel__value--token {
+  max-width: 190px;
+  color: var(--hud-white);
+  font-size: clamp(16px, 1.35vw, 24px);
+  font-weight: 800;
+  line-height: 1.05;
+  white-space: normal;
+}
+
+.hud-panel__text {
+  margin: 12px 0 0;
+  color: var(--hud-white);
+  font-size: clamp(14px, 1.05vw, 18px);
+  line-height: 1.35;
+}
+
+.hud-icon {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+/* =========================
+   TIMER
+========================= */
+
+#timer-hud {
+  position: absolute;
+  top: var(--hud-edge-y);
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: var(--hud-white);
+  font-size: clamp(34px, 4vw, 64px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+
+  text-shadow:
+    0 0 12px rgba(217, 165, 41, 0.45),
+    0 0 22px rgba(0, 0, 0, 0.9);
+}
+
+/* =========================
+   END SCREEN
+========================= */
+
+.end-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.82);
+  text-align: center;
+}
+
+.end-screen img {
+  width: clamp(180px, 22vw, 360px);
+  height: auto;
+  margin-bottom: 24px;
+}
+
+#end-message {
+  color: var(--hud-white);
+  font-size: clamp(28px, 3vw, 56px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* =========================
+   CASH PANEL
+========================= */
+
+.hud-panel--cash {
+  top: var(--hud-edge-y);
+  left: var(--hud-edge-x);
+
+  width: clamp(270px, 25vw, 390px);
+  height: clamp(100px, 8vw, 120px);
+
+  display: grid;
+  grid-template-columns: 34% 1fr;
+  align-items: start;
+}
+
+.hud-panel--cash::after {
+  top: 37%;
+  left: 35%;
+  right: 5%;
+
+  background: linear-gradient(
+    90deg,
+    var(--hud-gold-soft) 0%,
+    var(--hud-gold-soft) 60%,
+    transparent 100%
+  );
+}
+
+.hud-icon--cash {
+  width: 150%;
+  max-width: 160px;
+  height: auto;
+
+  justify-self: center;
+  transform: translateX(-10px) translateY(-10px);
+}
+
+.hud-panel--cash .hud-panel__content {
+  justify-self: start;
+  transform: translateX(4px);
+}
+
+/* =========================
+   SECRET ITEM PANEL
+========================= */
+
+.hud-panel--token {
+  top: calc(var(--hud-edge-y) + clamp(108px, 10vw, 150px));
+  left: var(--hud-edge-x);
+
+  width: clamp(235px, 19vw, 320px);
+  min-height: clamp(105px, 10vw, 150px);
+}
+
+.hud-panel--token::after {
+  top: 30%;
+  left: 4%;
+  right: 8%;
+
+  background: linear-gradient(
+    90deg,
+    var(--hud-gold-soft) 0%,
+    var(--hud-gold-soft) 60%,
+    transparent 100%
+  );
+}
+
+.hud-token-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1vw, 18px);
+  margin-top: 12px;
+}
+
+.hud-icon--token {
+  width: clamp(54px, 5vw, 82px);
+  height: clamp(54px, 5vw, 82px);
+  transform: translateY(6px);
+}
+
+/* =========================
+   OBJECTIVE PANEL
+========================= */
+
+.hud-panel--objective {
+  left: var(--hud-edge-x);
+  bottom: var(--hud-edge-y);
+
+  width: clamp(270px, 26vw, 410px);
+  min-height: clamp(95px, 9vw, 135px);
+
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease,
+    visibility 250ms ease;
+}
+
+.hud-panel--objective::after {
+  display: block;
+  top: 40%;
+  left: 15%;
+  right: 6%;
+
+  background: linear-gradient(
+    90deg,
+    var(--hud-gold-soft) 0%,
+    var(--hud-gold-soft) 60%,
+    transparent 100%
+  );
+}
+
+.hud-objective-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-icon--objective {
+  width: clamp(28px, 2.6vw, 44px);
+  height: clamp(28px, 2.6vw, 44px);
+}
+
+/* =========================
+   CONTROLS PANEL
+========================= */
+
+.hud-panel--controls {
+  right: var(--hud-edge-x);
+  bottom: var(--hud-edge-y);
+
+  width: clamp(250px, 24vw, 390px);
+  min-height: clamp(230px, 20vw, 330px);
+
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease,
+    visibility 250ms ease;
+}
+
+.hud-panel--controls::after {
+  top: 12%;
+  left: 12%;
+  right: 12%;
+}
+
+.hud-controls-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.hud-controls-list li {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  column-gap: 18px;
+  padding: 3px 0;
+
+  color: var(--hud-white);
+  font-size: clamp(16px, 1.3vw, 24px);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.control-icon {
+  justify-self: center;
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+}
+
+.control-text {
+  display: inline-block;
+}
+
+.control-icon--wasd {
+  transform: translateX(50px);
+}
+
+.control-icon--mouse {
+  transform: translateX(0px);
+}
+
+.control-icon--interact {
+  transform: translateX(30px);
+}
+
+.control-icon--shift {
+  transform: translateX(20px);
+}
+
+.control-icon--ctrl {
+  transform: translateX(15px);
+}
+
+.control-text--move {
+  transform: translateX(30px);
+}
+
+.control-text--look {
+  transform: translateX(-70px);
+}
+
+.control-text--interact {
+  transform: translateX(-10px);
+}
+
+.control-text--sprint {
+  transform: translateX(-28px);
+}
+
+.control-text--crouch {
+  transform: translateX(-35px);
+}
+
+/* =========================
+   INTERACTION PANEL
+========================= */
+
+.hud-panel--interaction {
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+
+  width: clamp(500px, 38vw, 700px);
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  text-align: center;
+  background: var(--hud-black-glass-strong);
+
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.hud-panel--interaction.hud-panel--visible {
+  opacity: 1;
+  transform: translate(-50%, -40%);
+}
+
+.hud-panel--interaction::after {
+  top: 58%;
+}
+
+.hud-interaction-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+  margin-top: 14px;
+  white-space: nowrap;
+
+  color: var(--hud-white);
+  font-size: clamp(16px, 1.4vw, 26px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hud-interaction-action span {
+  transform: translateX(-25px);
+}
+
+.hud-interaction-action img {
+  width: clamp(90px, 7vw, 140px);
+  height: auto;
+  object-fit: contain;
+}
+
+.hud-interaction-icon--escape {
+  width: clamp(20px, 4vw, 40px) !important;
+}
+
+.hud-panel--escape::after {
+  top: 46%;
+}
+
+.hud-panel--escape .hud-interaction-action {
+  gap: 16px;
+}
+
+.hud-panel--escape .hud-interaction-action span {
+  transform: translateX(-5px);
+}
+
+/* =========================
+   GAME POPUPS
+========================= */
+
+#game-popup-container {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translateX(-50%);
+  z-index: 1500;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  pointer-events: none;
+}
+
+.game-popup {
+  font-size: clamp(22px, 2vw, 36px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 10px rgba(0, 0, 0, 0.9),
+    0 0 18px currentColor;
+
+  animation: gamePopupFade 1.4s ease-out forwards;
+}
+
+.game-popup--cash {
+  color: #64ff4a;
+}
+
+.game-popup--gold {
+  color: #d9a529;
+}
+
+.game-popup--diamond {
+  color: #5ee7ff;
+}
+
+.game-popup--mark {
+  color: #b46cff;
+}
+
+.game-popup--token {
+  color: #ffd86b;
+}
+
+.game-popup--money-loss,
+.game-popup--time-loss {
+  color: #ff3b3b;
+}
+
+.game-popup--neutral {
+  color: #ffffff;
+}
+
+@keyframes gamePopupFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.92);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-35px) scale(1.08);
+  }
+}
+
+/* =========================
+   TIMER DAMAGE ANIMATION
+========================= */
+
+.timer-hit {
+  animation: timerHitFlash 0.45s ease-out;
+}
+
+@keyframes timerHitFlash {
+  0% {
+    color: #ff3b3b;
+    transform: translateX(-50%) scale(1.25);
+    text-shadow:
+      0 0 12px #ff3b3b,
+      0 0 28px #ff3b3b;
+  }
+
+  100% {
+    color: var(--hud-white);
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* =========================
+   TIMER WARNING COLORS
+========================= */
+
+#timer-hud.timer-warning {
+  color: #ffd84a;
+}
+
+#timer-hud.timer-danger {
+  color: #ff3b3b;
+}
+
+/* =========================
+   RESPONSIVE SUPPORT
+========================= */
+
+@media (max-width: 900px) {
+  .hud-panel--objective,
+  .hud-panel--controls {
+    width: clamp(220px, 36vw, 320px);
+  }
+
+  .hud-panel--interaction {
+    top: 54%;
+  }
+}
+
+@media (max-width: 700px) {
+  .hud-panel--controls {
+    display: none;
+  }
+
+  .hud-panel--cash,
+  .hud-panel--token,
+  .hud-panel--objective {
+    left: 14px;
+  }
+
+  .hud-panel--objective {
+    bottom: 14px;
+  }
+
+  .hud-panel--interaction {
+    width: calc(100vw - 28px);
+    top: 55%;
+  }
+}

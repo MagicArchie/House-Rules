@@ -1,0 +1,1549 @@
+<!doctype html>
+<html lang="el-GR">
+  <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>House Rules - VR Game Project</title>
+
+	<script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+	<link rel="stylesheet" href="css/hud.css" />
+
+	<script defer src="js/game.js"></script>
+  </head>
+
+  <body>
+	<a-assets>
+	  <!-- Asset Group: Environment Models -->
+	  <a-asset-item id="map" src="materials/models/CasinoMap-Building.glb">
+	  </a-asset-item>
+	  <a-asset-item
+		id="map-decoration"
+		src="materials/models/CasinoMap-Decoration.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item id="vault" src="materials/models/CasinoVault-Building.glb">
+	  </a-asset-item>
+	  <a-asset-item
+		id="vault-decoration"
+		src="materials/models/CasinoVault-Decoration.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item id="tables-chairs" src="materials/models/Tables&Chairs.glb">
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="chip-stack-01-model"
+		src="materials/models/TableChips-011.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="chip-stack-02-model"
+		src="materials/models/TableChips-012.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="chip-stack-03-model"
+		src="materials/models/TableChips-021.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="chip-stack-04-model"
+		src="materials/models/TableChips-041.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="chip-stack-05-model"
+		src="materials/models/TableChips-042.glb"
+	  >
+	  </a-asset-item>
+
+	  <!-- Asset Group: Wheel of Fortune Models -->
+	  <a-asset-item
+		id="wheel-of-fortune-body"
+		src="materials/models/WheelOfFortune-Body.glb"
+	  >
+	  </a-asset-item>
+
+	  <a-asset-item
+		id="wheel-of-fortune-wheel"
+		src="materials/models/WheelOfFortune-AnimatedPart.glb"
+	  >
+	  </a-asset-item>
+	  
+	  <!-- Audio Group: -->
+	  <audio id="elevator-sound" src="materials/audio/Elevator.wav"></audio>
+
+	  <audio
+		id="fortune-wheel-sound"
+		src="materials/audio/FortuneWheelSpin.wav"
+	  ></audio>
+	</a-assets>
+
+	<a-scene
+	  renderer="
+			colorManagement: true;
+			physicallyCorrectLights: true;
+			exposure: 1.4;
+			toneMapping: ACESFilmic;"
+	>
+	  <!-- =========================
+		  PLAYER / CAMERA
+	  ========================= -->
+
+	  <a-entity
+		id="player"
+		position="0 0 -40"
+		player-controls-custom="spawnLookY: 180;"
+	  >
+		<a-box
+		  id="player-hitbox"
+		  class="player-hitbox"
+		  position="0 2.25 0"
+		  width="1.1"
+		  height="4.5"
+		  depth="1.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0.35;"
+		>
+		</a-box>
+
+		<a-camera
+		  id="camera"
+		  look-controls="pointerLockEnabled: true"
+		  wasd-controls="enabled: false"
+		  position="0 4.0 0"
+		>
+		  <a-entity
+			cursor="rayOrigin: center"
+			raycaster="objects: .interactable; far: 6; showLine: false"
+		  >
+		  </a-entity>
+
+		  <a-entity id="crosshair" position="0 0 -1">
+			<a-entity
+			  geometry="primitive: ring; radiusInner: 0.025; radiusOuter: 0.030"
+			  material="color: white; shader: flat; opacity: 0.85; transparent: true"
+			>
+			</a-entity>
+
+			<a-entity
+			  id="crosshair-dot"
+			  geometry="primitive: circle; radius: 0.006"
+			  material="color: white; shader: flat"
+			>
+			</a-entity>
+		  </a-entity>
+		</a-camera>
+	  </a-entity>
+
+	  <!-- =========================
+		  WORLD
+      ========================= -->
+
+	  <a-sky color="#02030a"></a-sky>
+
+	  <a-entity
+		id="main-map"
+		gltf-model="#map"
+		position="0 0 0"
+		rotation="0 0 0"
+		scale="1 1 1"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="main-map-decoration"
+		gltf-model="#map-decoration"
+		position="0 0 0"
+		rotation="0 0 0"
+		scale="1 1 1"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="vault"
+		gltf-model="#vault"
+		position="0 0 0"
+		rotation="0 0 0"
+		scale="1 1 1"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="vault-decoration"
+		gltf-model="#vault-decoration"
+		position="0 0 0"
+		rotation="0 0 0"
+		scale="1 1 1"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="main-tables-chairs"
+		gltf-model="#tables-chairs"
+		position="0 0 0"
+		rotation="0 0 0"
+		scale="1 1 1"
+	  >
+	  </a-entity>
+
+	  <!-- Table Loot: Chips 01 -->
+	  <a-entity
+		id="chips-01"
+		loot-item="itemname: Table Chips; unitValue: 875; amount: 1;"
+	  >
+		<a-entity
+		  gltf-model="#chip-stack-01-model"
+		  position="24.5 3.32 -10"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="24.45 3.45 -9.48"
+		  height="0.7"
+		  radius="3.6"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <!-- Table Loot: Chips 02 -->
+	  <a-entity
+		id="chips-02"
+		loot-item="itemname: Table Chips; unitValue: 1650; amount: 1;"
+	  >
+		<a-entity
+		  gltf-model="#chip-stack-02-model"
+		  position="-22.923 3.480 -9.224"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="-24.288 3.480 -9.459"
+		  height="0.7"
+		  radius="3.6"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <!-- Table Loot: Chips 03 -->
+	  <a-entity
+		id="chips-03"
+		loot-item="itemname: Table Chips; unitValue: 2750; amount: 1;"
+	  >
+		<a-entity
+		  gltf-model="#chip-stack-03-model"
+		  position="-16.620 3.437 -26.124"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="-16.755 3.437 -24.972"
+		  height="0.7"
+		  radius="2.2"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <!-- Table Loot: Chips 04 -->
+	  <a-entity
+		id="chips-04"
+		loot-item="itemname: Table Chips; unitValue: 4200; amount: 1;"
+	  >
+		<a-entity
+		  gltf-model="#chip-stack-04-model"
+		  position="33.019 3.437 -23.112"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="32.827 3.437 -22.895"
+		  height="0.7"
+		  radius="2.15"
+		  scale="1.4 0.3 2.4"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <!-- Table Loot: Chips 05 -->
+	  <a-entity
+		id="chips-05"
+		loot-item="itemname: Table Chips; unitValue: 7500; amount: 1;"
+	  >
+		<a-entity
+		  gltf-model="#chip-stack-05-model"
+		  position="-33.159 3.437 -23.377"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="-32.959 3.437 -22.895"
+		  height="0.7"
+		  radius="2.15"
+		  scale="1.4 0.3 2.4"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <!-- Asset Group: Slot Machine Models -->
+	  <a-asset-item
+		id="slot-machine-body-model"
+		src="materials/models/slotMachine/SlotMachine-Body.glb"
+	  ></a-asset-item>
+	  <a-asset-item
+		id="slot-machine-lever-model"
+		src="materials/models/slotMachine/SlotMachine-Lever.glb"
+	  ></a-asset-item>
+	  <a-asset-item
+		id="slot-machine-reel-01-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-01.glb"
+	  ></a-asset-item>
+	  <a-asset-item
+		id="slot-machine-reel-02-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-02.glb"
+	  ></a-asset-item>
+	  <a-asset-item
+		id="slot-machine-reel-03-model"
+		src="materials/models/slotMachine/SlotMachine-Reel-03.glb"
+	  ></a-asset-item>
+
+	  <!-- =========================
+		  LIGHTING
+	  ========================= -->
+
+	  <a-entity
+		id="global-light"
+		light="
+				type: ambient;
+				color: #ffffff;
+				intensity: 0.85;"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="chandelier-light"
+		position="0 7.5000 0"
+		scale="1.43927 1.43927 1.43927"
+		light="
+				color: #ffd89a;
+				distance: 40;
+				intensity: 40;
+				type: point;
+				decay: 2;"
+		shadow="cast: false"
+	  >
+		<a-sphere radius="0.25" color="#ffcc66"></a-sphere>
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Back-Left"
+		position="-24.0959 11.12971 19.08406"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+		<a-sphere radius="0.20" color="#ffff00"></a-sphere>
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Front-Left"
+		position="-24.0959 11.12971 -19.24716"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+		<a-sphere radius="0.20" color="#ffff00"></a-sphere>
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Front-Right"
+		position="24.06869 11.12971 -19.24716"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+		<a-sphere radius="0.20" color="#ffff00"></a-sphere>
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Back-Right"
+		position="24.06869 11.12971 19.29998"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+		<a-sphere radius="0.20" color="#ffff00"></a-sphere>
+	  </a-entity>
+
+	  <!-- =========================
+		 UNFINISHED COLLECTIBLE PLACEHOLDERS
+		 Replace these boxes later with final Cash, Gold, Diamond, and Casino Token models.
+	  ========================= -->
+
+	  <a-box
+		id="cash-bundle"
+		position="-4 1 -4"
+		color="green"
+		loot-item="itemname: Cash Bundle; unitValue: 100; amount: 1;"
+	  ></a-box>
+	  <a-box
+		id="gold-bar"
+		position="-2 1 -4"
+		color="yellow"
+		loot-item="itemname: Gold Bar; unitValue: 500; amount: 1;"
+	  ></a-box>
+	  <a-box
+		id="diamond"
+		position="0 1 -4"
+		color="cyan"
+		loot-item="itemname: Diamond; unitValue: 1000; amount: 1;"
+	  ></a-box>	 
+
+	  <a-box
+		id="casino-token"
+		position="4 1 -4"
+		color="red"
+		loot-item="itemname: Casino Token; amount: 1; keyitem: true;"
+	  ></a-box>
+
+	  <!-- Escape Route: hidden until the timer reaches 08:00 -->
+	  <a-entity id="escape-zone" position="0 0.04 -46" escape-zone>
+		<a-ring
+		  id="escape-ring"
+		  visible="false"
+		  position="0 0.07 0"
+		  rotation="-90 0 0"
+		  radius-inner="5.5"
+		  radius-outer="5.8"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 3;
+					transparent: true;
+					opacity: 1;
+					shader: standard;
+					side: double;"
+		>
+		</a-ring>
+
+		<a-cylinder
+		  id="escape-cylinder-1"
+		  visible="false"
+		  position="0 0.3 0"
+		  radius="5.7"
+		  height="0.4"
+		  open-ended="true"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 0.8;
+					transparent: true;
+					opacity: 0.16;
+					side: double;"
+		>
+		</a-cylinder>
+
+		<a-cylinder
+		  id="escape-cylinder-2"
+		  visible="false"
+		  position="0 1.2 0"
+		  radius="5.7"
+		  height="0.25"
+		  open-ended="true"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 0.8;
+					transparent: true;
+					opacity: 0.16;
+					side: double;"
+		>
+		</a-cylinder>
+
+		<a-cylinder
+		  id="escape-cylinder-3"
+		  visible="false"
+		  position="0 1.9 0"
+		  radius="5.7"
+		  height="0.15"
+		  open-ended="true"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 0.8;
+					transparent: true;
+					opacity: 0.16;
+					side: double;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <a-entity
+		id="elevator-audio"
+		sound="
+				src: #elevator-sound;
+				volume: 1;
+				positional: false;"
+	  >
+	  </a-entity>
+
+	  <!-- Elevator Zones: casino floor <-> vault -->
+	  <a-entity
+		id="casino-elevator-zone"
+		position="-46.8 0.04 33.5"
+		elevator-zone="
+				label: ELEVATOR TO VAULT;
+				targetSelector: #vault-elevator-zone;
+				targetOffsetX: 0;
+				targetOffsetY: 0;
+				targetOffsetZ: 0;
+				lookY: 180;
+				radius: 2.2;
+				delay: 1200;
+				audioSelector: #elevator-audio;"
+	  >
+		<a-ring
+		  position="0 0.07 0"
+		  rotation="-90 0 0"
+		  radius-inner="2.5"
+		  radius-outer="2.75"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 3;
+					transparent: true;
+					opacity: 1;
+					shader: standard;
+					side: double;"
+		>
+		</a-ring>
+
+		<a-cylinder
+		  position="0 0.35 0"
+		  radius="2.60"
+		  height="0.4"
+		  open-ended="true"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 0.8;
+					transparent: true;
+					opacity: 0.16;
+					side: double;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <a-entity
+		id="vault-elevator-zone"
+		position="-80 0.04 -45"
+		elevator-zone="
+				label: ELEVATOR TO CASINO;
+				targetSelector: #casino-elevator-zone;
+				targetOffsetX: 0;
+				targetOffsetY: 0;
+				targetOffsetZ: 0;
+				lookY: 0;
+				radius: 2.2;
+				delay: 1200;
+				audioSelector: #elevator-audio;"
+	  >
+		<a-ring
+		  position="0 0.07 0"
+		  rotation="-90 0 0"
+		  radius-inner="2.5"
+		  radius-outer="2.75"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 3;
+					transparent: true;
+					opacity: 1;
+					shader: standard;
+					side: double;"
+		>
+		</a-ring>
+
+		<a-cylinder
+		  position="0 0.35 0"
+		  radius="2.60"
+		  height="0.4"
+		  open-ended="true"
+		  material="
+					color: #d9a529;
+					emissive: #d9a529;
+					emissiveIntensity: 0.8;
+					transparent: true;
+					opacity: 0.16;
+					side: double;"
+		>
+		</a-cylinder>
+	  </a-entity>
+
+	  <a-entity
+		id="fortune-wheel-audio"
+		sound="
+				src: #fortune-wheel-sound;
+				volume: 1;
+				positional: false;"
+	  >
+	  </a-entity>
+
+	  <!-- Main Casino Machine: Wheel of Fortune -->
+	  <a-entity
+		id="fortune-wheel-machine"
+		position="0 4.1 40"
+		rotation="0 0 0"
+		scale="1 1 1"
+		fortune-wheel="
+					wheelSelector: #fortune-wheel-disc;
+					spinDuration: 3500;
+					audioSelector: #fortune-wheel-audio;"
+	  >
+		<a-entity
+		  id="fortune-wheel-body"
+		  gltf-model="#wheel-of-fortune-body"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="fortune-wheel-disc"
+		  gltf-model="#wheel-of-fortune-wheel"
+		  position="0 0 -0.3"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 1.5 0"
+		  width="4"
+		  height="4"
+		  depth="2"
+		  material="
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 1 -->
+	  <a-entity
+		id="slot-machine"
+		position="18.5 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever;
+					reel1Selector: #slot-reel-1;
+					reel2Selector: #slot-reel-2;
+					reel3Selector: #slot-reel-3;
+					betTextSelector: #slot-bet-text;
+					statusTextSelector: #slot-status-text;"
+	  >
+		<a-text
+		  id="slot-bet-text"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 2 -->
+	  <a-entity
+		id="slot-machine 2"
+		position="21.75 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-02;
+					reel1Selector: #slot-reel-1-02;
+					reel2Selector: #slot-reel-2-02;
+					reel3Selector: #slot-reel-3-02;
+					betTextSelector: #slot-bet-text-02;
+					statusTextSelector: #slot-status-text-02;"
+	  >
+		<a-text
+		  id="slot-bet-text-02"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-02"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-02"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-02"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-02"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-02"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-02"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 3 -->
+	  <a-entity
+		id="slot-machine 3"
+		position="25 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-03;
+					reel1Selector: #slot-reel-1-03;
+					reel2Selector: #slot-reel-2-03;
+					reel3Selector: #slot-reel-3-03;
+					betTextSelector: #slot-bet-text-03;
+					statusTextSelector: #slot-status-text-03;"
+	  >
+		<a-text
+		  id="slot-bet-text-03"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-03"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-03"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-03"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-03"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-03"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-03"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 4 -->
+	  <a-entity
+		id="slot-machine 4"
+		position="28.25 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-04;
+					reel1Selector: #slot-reel-1-04;
+					reel2Selector: #slot-reel-2-04;
+					reel3Selector: #slot-reel-3-04;
+					betTextSelector: #slot-bet-text-04;
+					statusTextSelector: #slot-status-text-04;"
+	  >
+		<a-text
+		  id="slot-bet-text-04"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-04"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-04"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-04"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-04"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-04"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-04"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 5 -->
+	  <a-entity
+		id="slot-machine 5"
+		position="-18.5 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-05;
+					reel1Selector: #slot-reel-1-05;
+					reel2Selector: #slot-reel-2-05;
+					reel3Selector: #slot-reel-3-05;
+					betTextSelector: #slot-bet-text-05;
+					statusTextSelector: #slot-status-text-05;"
+	  >
+		<a-text
+		  id="slot-bet-text-05"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-05"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-05"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-05"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-05"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-05"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 6 -->
+	  <a-entity
+		id="slot-machine 6"
+		position="-21.75 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-06;
+					reel1Selector: #slot-reel-1-06;
+					reel2Selector: #slot-reel-2-06;
+					reel3Selector: #slot-reel-3-06;
+					betTextSelector: #slot-bet-text-06;
+					statusTextSelector: #slot-status-text-06;"
+	  >
+		<a-text
+		  id="slot-bet-text-06"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-06"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-06"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-06"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-06"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-06"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-06"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 7 -->
+	  <a-entity
+		id="slot-machine 7"
+		position="-25 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-07;
+					reel1Selector: #slot-reel-1-07;
+					reel2Selector: #slot-reel-2-07;
+					reel3Selector: #slot-reel-3-07;
+					betTextSelector: #slot-bet-text-07;
+					statusTextSelector: #slot-status-text-07;"
+	  >
+		<a-text
+		  id="slot-bet-text-07"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-07"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-07"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-07"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-07"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-07"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-07"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+
+	  <!-- SlotMachine 8 -->
+	  <a-entity
+		id="slot-machine 8"
+		position="-28.25 0.1 44"
+		slot-machine="
+					leverSelector: #slot-lever-08;
+					reel1Selector: #slot-reel-1-08;
+					reel2Selector: #slot-reel-2-08;
+					reel3Selector: #slot-reel-3-08;
+					betTextSelector: #slot-bet-text-08;
+					statusTextSelector: #slot-status-text-08;"
+	  >
+		<a-text
+		  id="slot-bet-text-08"
+		  value=""
+		  position="0 4.45 -0.620"
+		  rotation="0 180 0"
+		  align="center"
+		  width="10"
+		  color="#64ff4a"
+		>
+		</a-text>
+
+		<a-text
+		  id="slot-status-text-08"
+		  value=""
+		  position="0 5.865 0.355"
+		  rotation="0 180 0"
+		  align="center"
+		  width="4.250"
+		  color="#d9a529"
+		>
+		</a-text>
+
+		<a-entity
+		  id="slot-body-08"
+		  gltf-model="#slot-machine-body-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-lever-08"
+		  gltf-model="#slot-machine-lever-model"
+		  position="-1.433 1.55 0"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-1-08"
+		  gltf-model="#slot-machine-reel-01-model"
+		  position="0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-2-08"
+		  gltf-model="#slot-machine-reel-02-model"
+		  position="0 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-entity
+		  id="slot-reel-3-08"
+		  gltf-model="#slot-machine-reel-03-model"
+		  position="-0.55 2.785 -0.045"
+		  rotation="0 0 0"
+		  scale="1 1 1"
+		>
+		</a-entity>
+
+		<a-box
+		  class="interactable"
+		  position="0 2.6 0"
+		  width="2.5"
+		  height="5.2"
+		  depth="3.1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-box>
+	  </a-entity>
+	</a-scene>
+
+	<!-- =========================
+		HTML / CSS HUD
+	========================= -->
+
+	<div id="hud">
+	  <div id="game-popup-container"></div>
+
+	  <div id="timer-hud">10:00</div>
+
+	  <div id="end-screen" class="end-screen hud-hidden">
+		<img id="end-image" src="" alt="End Screen" />
+		<div id="end-message"></div>
+	  </div>
+
+	  <section class="hud-panel hud-panel--cash">
+		<img
+		  class="hud-icon hud-icon--cash"
+		  src="materials/images/Cash Icon.png"
+		  alt="Cash"
+		/>
+
+		<div class="hud-panel__content hud-panel__content--cash">
+		  <div class="hud-panel__label">MONEY:</div>
+		  <div id="money-value" class="hud-panel__value">$0</div>
+		</div>
+	  </section>
+
+	  <section id="token-panel" class="hud-panel hud-panel--token">
+		<div class="hud-panel__title">SECRET ITEM:</div>
+
+		<div class="hud-token-row">
+		  <img
+			id="token-icon"
+			class="hud-icon hud-icon--token"
+			src="materials/images/SecretItem Icon.png"
+			alt="Secret Item"
+		  />
+
+		  <div id="token-name" class="hud-panel__value hud-panel__value--token">
+			NOT FOUND
+		  </div>
+		</div>
+	  </section>
+
+	  <section class="hud-panel hud-panel--objective">
+		<div class="hud-objective-header">
+		  <img
+			class="hud-icon hud-icon--objective"
+			src="materials/images/Objective Icon.png"
+			alt="Objective"
+		  />
+
+		  <div class="hud-panel__label">OBJECTIVE:</div>
+		</div>
+
+		<p class="hud-panel__text">
+		  Collect as much money as you can and escape before security catches
+		  you.
+		</p>
+	  </section>
+
+	  <section class="hud-panel hud-panel--controls">
+		<div class="hud-panel__label hud-panel__label--center">CONTROLS</div>
+
+		<ul class="hud-controls-list">
+		  <li>
+			<img
+			  class="control-icon control-icon--wasd"
+			  src="materials/images/WASD Keys.png"
+			  alt="WASD"
+			/>
+			<span class="control-text control-text--move">- MOVE</span>
+		  </li>
+
+		  <li>
+			<img
+			  class="control-icon control-icon--mouse"
+			  src="materials/images/Mouse.png"
+			  alt="Mouse"
+			/>
+			<span class="control-text control-text--look">- LOOK</span>
+		  </li>
+
+		  <li>
+			<img
+			  class="control-icon control-icon--interact"
+			  src="materials/images/Interact.png"
+			  alt="Interact"
+			/>
+			<span class="control-text control-text--interact">- INTERACT</span>
+		  </li>
+
+		  <li>
+			<img
+			  class="control-icon control-icon--shift"
+			  src="materials/images/SHIFT Key.png"
+			  alt="Shift"
+			/>
+			<span class="control-text control-text--sprint">- SPRINT</span>
+		  </li>
+
+		  <li>
+			<img
+			  class="control-icon control-icon--ctrl"
+			  src="materials/images/CTRL Key.png"
+			  alt="Ctrl"
+			/>
+			<span class="control-text control-text--crouch">- CROUCH</span>
+		  </li>
+		</ul>
+	  </section>
+
+	  <section id="interaction-panel" class="hud-panel hud-panel--interaction">
+		<div
+		  id="interaction-name"
+		  class="hud-panel__label hud-panel__label--interaction"
+		>
+		  No item selected
+		</div>
+
+		<div
+		  id="interaction-value"
+		  class="hud-panel__value hud-panel__value--small"
+		></div>
+
+		<div class="hud-interaction-action">
+		  <img src="materials/images/Interact.png" alt="Interact" />
+		  <span id="interaction-action-text">PRESS E OR CLICK TO INTERACT</span>
+		</div>
+	  </section>
+	</div>
+  </body>
+</html>
