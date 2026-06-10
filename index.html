@@ -213,7 +213,9 @@
 			colorManagement: true;
 			physicallyCorrectLights: true;
 			exposure: 1.4;
-			toneMapping: ACESFilmic;"
+			toneMapping: ACESFilmic;
+			antialias: false;
+			precision: mediump;"
 	>
 	  <!-- =========================
 		  PLAYER / CAMERA
@@ -923,7 +925,7 @@
 	  
 	  <!-- Room Loot: Cash 19 -->
 	  <a-entity
-		id="cash-bundle-18"
+		id="cash-bundle-19"
 		position="-84.860 3.060 58.460"
 		rotation="0 -169.5 0"
 		loot-item="itemname: Cash Bundle; unitValue: 1500; amount: 1;"
@@ -1191,9 +1193,9 @@
 		</a-cylinder>
 	  </a-entity>
 	  
-	  <!-- Room Loot: Cash 28 -->
+	  <!-- Room Loot: Cash 28b -->
 	  <a-entity
-		id="cash-bundle-28"
+		id="cash-bundle-28b"
 		position="-81.390 1.399 58.425"
 		rotation="0 94.316 0"
 		loot-item="itemname: Cash Bundle; unitValue: 2500; amount: 1;"
@@ -1286,7 +1288,7 @@
 		id="gold-bar-01"
 		position="-71.578 0.562 47.862"
 		rotation="0 118 0"
-		loot-item="itemname: Gold Bar; unitValue: 500; amount: 1;"
+		<!--loot-item="itemname: Gold Bar; unitValue: 500; amount: 1;"-->
 		>
 		
 		<a-entity
@@ -1314,9 +1316,9 @@
 	  <!-- Room Loot: Gold 02 -->
 	  <a-entity
 		id="gold-bar-02"
-		position="-71 2.519 54.337"
+		position="-71.587 2.519 54.337"
 		rotation="0 118 0"
-		loot-item="itemname: Gold Bar; unitValue: 500; amount: 1;"
+		<!--loot-item="itemname: Gold Bar; unitValue: 500; amount: 1;"-->
 		>
 		
 		<a-entity
@@ -1611,9 +1613,9 @@
 		</a-cylinder>
 	  </a-entity>
 	  
-	  <!-- Room Loot: Gold 11 -->
+	  <!-- Room Loot: Gold 11b -->
 	  <a-entity
-		id="gold-bar-11"
+		id="gold-bar-11b"
 		position="-86.101 0.605 46.134"
 		rotation="0 -68 0"
 		loot-item="itemname: Gold Bar; unitValue: 500; amount: 7;"
@@ -2234,7 +2236,7 @@
 		scale="1 1 1"
 		fortune-wheel="
 					wheelSelector: #fortune-wheel-disc;
-					spinDuration: 3500;
+					spinDuration: 7000;
 					audioSelector: #fortune-wheel-audio;"
 	  >
 		<a-entity
@@ -2363,7 +2365,7 @@
 
 	  <!-- SlotMachine 2 -->
 	  <a-entity
-		id="slot-machine 2"
+		id="slot-machine-2"
 		position="21.75 0.1 44"
 		slot-machine="
 					leverSelector: #slot-lever-02;
@@ -2456,7 +2458,7 @@
 
 	  <!-- SlotMachine 3 -->
 	  <a-entity
-		id="slot-machine 3"
+		id="slot-machine-3"
 		position="25 0.1 44"
 		slot-machine="
 					leverSelector: #slot-lever-03;
@@ -3011,11 +3013,1870 @@
 		>
 		</a-box>
 	  </a-entity>
+	  
+<!-- =========================
+     SECURITY LASERS
+========================= -->
+
+<a-entity id="security-lasers">
+  
+  <!-- Laser Door 02 -->
+  <!-- Laser 01 -->
+  <a-entity
+    id="laser-01"
+    position="-75 1.777 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 02 -->
+  <a-entity
+    id="laser-02"
+    position="-75 2.948 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 03 -->
+  <a-entity
+    id="laser-03"
+    position="-75 4.233 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 04 -->
+  <a-entity
+    id="laser-04"
+    position="-75 5.278 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 05 -->
+  <a-entity
+    id="laser-05"
+    position="-75 6.296 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+
+  </a-entity>
+  
+  <!-- Laser Door 02 -->
+  <!-- Laser 06 -->
+  <a-entity
+    id="laser-06"
+    position="-85 1.777 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 07 -->
+  <a-entity
+    id="laser-07"
+    position="-85 2.948 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 08 -->
+  <a-entity
+    id="laser-08"
+    position="-85 4.233 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 09 -->
+  <a-entity
+    id="laser-09"
+    position="-85 5.278 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 10 -->
+  <a-entity
+    id="laser-10"
+    position="-85 6.296 -30.035"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+
+  </a-entity>
+  
+  <!-- Laser Door 03 -->
+  <!-- Laser 11 -->
+  <a-entity
+    id="laser-11"
+    position="-75 1.777 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 12 -->
+  <a-entity
+    id="laser-12"
+    position="-75 2.948 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 13 -->
+  <a-entity
+    id="laser-13"
+    position="-75 4.233 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 14 -->
+  <a-entity
+    id="laser-14"
+    position="-75 5.278 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 15 -->
+  <a-entity
+    id="laser-15"
+    position="-75 6.296 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+
+  </a-entity>
+  
+  <!-- Laser Door 04 -->
+  <!-- Laser 16 -->
+  <a-entity
+    id="laser-16"
+    position="-85 1.777 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 17 -->
+  <a-entity
+    id="laser-17"
+    position="-85 2.948 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 18 -->
+  <a-entity
+    id="laser-18"
+    position="-85 4.233 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>
+	
+	<!-- Laser 19 -->
+  <a-entity
+    id="laser-19"
+    position="-85 5.278 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+	
+	<!-- Laser 20 -->
+  <a-entity
+    id="laser-20"
+    position="-85 6.296 -20.046"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+
+  </a-entity>
+  
+  <!-- Laser Door 05 -->
+  <!-- Laser 21 -->
+  <a-entity
+    id="laser-21"
+    position="-72.697 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 22 -->
+  <a-entity
+    id="laser-22"
+    position="-75.116 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 23 -->
+  <a-entity
+    id="laser-23"
+    position="-77.590 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 24 -->
+  <a-entity
+    id="laser-24"
+    position="-80.000 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 25 -->
+  <a-entity
+    id="laser-25"
+    position="-82.443 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 26 -->
+  <a-entity
+    id="laser-26"
+    position="-84.893 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 27 -->
+  <a-entity
+    id="laser-27"
+    position="-87.413 3.475 -10.016"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser Door 06 -->
+  <!-- Laser 28 -->
+  <a-entity
+    id="laser-28"
+    position="-71.628 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 29 -->
+  <a-entity
+    id="laser-29"
+    position="-73.855 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 30 -->
+  <a-entity
+    id="laser-30"
+    position="-76.308 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 31 -->
+  <a-entity
+    id="laser-31"
+    position="-78.763 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 32 -->
+  <a-entity
+    id="laser-32"
+    position="-81.353 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 33 -->
+  <a-entity
+    id="laser-33"
+    position="-83.643 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 34 -->
+  <a-entity
+    id="laser-34"
+    position="-86.061 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+      <!-- Laser 35 -->
+  <a-entity
+    id="laser-35"
+    position="-88.565 3.475 -0.066"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+  <!-- Laser Door 07 -->
+  <!-- Laser 36 -->
+  <a-entity
+    id="laser-36"
+    position="-72.697 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 37 -->
+  <a-entity
+    id="laser-37"
+    position="-75.116 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 38 -->
+  <a-entity
+    id="laser-38"
+    position="-77.590 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 39 -->
+  <a-entity
+    id="laser-39"
+    position="-80.000 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 40 -->
+  <a-entity
+    id="laser-40"
+    position="-82.443 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 41 -->
+  <a-entity
+    id="laser-41"
+    position="-84.893 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+    <!-- Laser 42 -->
+  <a-entity
+    id="laser-42"
+    position="-87.413 3.475 9.876"
+    rotation="0 0 90"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 9;
+        near: 0.01;"
+      position="-4 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="9"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+  </a-entity>	
+  
+  <!-- Laser Door 08 -->
+  <!-- Laser 43 -->
+  <a-entity
+    id="laser-43"
+    position="-79.481 4.247 19.928"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+	
+	  <!-- Laser 44 -->
+  <a-entity
+    id="laser-44"
+    position="-79.481 5.286 19.928"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+	
+	  <!-- Laser 45 -->
+  <a-entity
+    id="laser-45"
+    position="-79.481 6.299 19.928"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+	
+<!-- Laser Door 09 -->
+  <!-- Laser 44 -->
+  <a-entity
+    id="laser-44"
+    position="-79.481 4.247 29.905"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+	
+	  <!-- Laser 45 -->
+  <a-entity
+    id="laser-45"
+    position="-79.481 5.286 29.905"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+	
+	  <!-- Laser 46 -->
+  <a-entity
+    id="laser-46"
+    position="-79.481 6.299 29.905"
+    rotation="0 0 0"
+  >
+    <!-- Raycaster / damage line -->
+    <a-entity
+      security-laser
+      raycaster="
+        objects: .player-hitbox;
+        showLine: true;
+        lineColor: red;
+        far: 20;
+        near: 0.01;"
+      position="-9.855 0 0"
+      rotation="0 -90 0"
+    >
+    </a-entity>
+
+    <!-- Visible laser beam -->
+    <a-cylinder
+      position="0 0 0"
+      rotation="0 0 90"
+      radius="0.035"
+      height="20"
+      material="
+        color: #ff0000;
+        emissive: #ff0000;
+        emissiveIntensity: 4;
+        transparent: true;
+        opacity: 0.85;
+        shader: standard;"
+    >
+    </a-cylinder>
+	
+	</a-entity>
+  
+</a-entity>
+
 	</a-scene>
 
 	<!-- =========================
 		HTML / CSS HUD
 	========================= -->
+
+	<!-- =========================
+		LOADING SCREEN
+	========================= -->
+
+	<div id="loading-screen">
+	  <div id="loading-content">
+		<div id="loading-title">HOUSE RULES</div>
+		<div id="loading-subtitle">LOADING ASSETS</div>
+
+		<div id="loading-bar-container">
+		  <div id="loading-bar-fill"></div>
+		</div>
+
+		<div id="loading-percent">0%</div>
+	  </div>
+	</div>
 
 	<div id="hud">
 	  <div id="game-popup-container"></div>
@@ -3031,6 +4892,8 @@
 			  <div id="end-rank-title" class="end-rank-title"></div>
 			  <div id="end-rank-text" class="end-rank-text"></div>
 			</div>
+
+			<button id="play-again-btn" onclick="window.location.reload()">PLAY AGAIN</button>
 	  </div>
 
 	  <section class="hud-panel hud-panel--cash">
