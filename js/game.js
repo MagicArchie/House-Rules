@@ -221,7 +221,7 @@ function hideInteractionHUD() {
   const interactionIcon = document.querySelector(".hud-interaction-action img");
 
   if (interactionIcon) {
-    interactionIcon.src = "materials/images/Interact.png";
+    interactionIcon.src = "materials/images/HUD/Interact.png";
     interactionIcon.classList.remove("hud-interaction-icon--escape");
   }
 }

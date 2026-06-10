@@ -311,6 +311,101 @@
 	  >
 	  </a-entity>
 
+	  <!-- =========================
+		  LIGHTING
+	  ========================= -->
+
+	  <a-entity
+		id="global-light"
+		light="
+				type: ambient;
+				color: #ffffff;
+				intensity: 0.85;"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="chandelier-light"
+		position="0 7.5000 0"
+		scale="1.43927 1.43927 1.43927"
+		light="
+				color: #ffd89a;
+				distance: 40;
+				intensity: 40;
+				type: point;
+				decay: 2;"
+		shadow="cast: false"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Back-Left"
+		position="-24.0959 11.12971 19.08406"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Front-Left"
+		position="-24.0959 11.12971 -19.24716"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Front-Right"
+		position="24.06869 11.12971 -19.24716"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+	  </a-entity>
+
+	  <a-entity
+		id="Corner-Back-Right"
+		position="24.06869 11.12971 19.29998"
+		rotation="-90 0 0"
+		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
+	  >
+	  </a-entity>
+	  
+	  <!-- =========================
+		 CASH/GOLD/DIAMONDS/CHIPS
+	  ========================= -->
+	  
+	  <!-- Room Loot: Cash 01 -->
+	  <a-entity
+		id="cash-bundle"
+		position="-6.24 2.746 -4"
+		rotation="0 -135 0"
+		loot-item="itemname: Cash Bundle; unitValue: 100; amount: 1;"
+		>
+		
+		<a-entity
+		  gltf-model="#cash-01-model"
+		  position="0 0 0"
+		  rotation="0 0 0"
+		  scale="2 2 2"
+		>
+		</a-entity>
+
+		<a-cylinder
+		  class="interactable"
+		  position="0 0 0"
+		  height="0.25"
+		  radius="0.5"
+		  scale="1.81 1 1"
+		  material="
+						color: red;
+						transparent: true;
+						opacity: 0;"
+		>
+		</a-cylinder>
+	  </a-entity>
+		
+	  </a-entity>
+	  
 	  <!-- Table Loot: Chips 01 -->
 	  <a-entity
 		id="chips-01"
@@ -442,70 +537,6 @@
 		>
 		</a-cylinder>
 	  </a-entity>
-
-	  <!-- =========================
-		  LIGHTING
-	  ========================= -->
-
-	  <a-entity
-		id="global-light"
-		light="
-				type: ambient;
-				color: #ffffff;
-				intensity: 0.85;"
-	  >
-	  </a-entity>
-
-	  <a-entity
-		id="chandelier-light"
-		position="0 7.5000 0"
-		scale="1.43927 1.43927 1.43927"
-		light="
-				color: #ffd89a;
-				distance: 40;
-				intensity: 40;
-				type: point;
-				decay: 2;"
-		shadow="cast: false"
-	  >
-	  </a-entity>
-
-	  <a-entity
-		id="Corner-Back-Left"
-		position="-24.0959 11.12971 19.08406"
-		rotation="-90 0 0"
-		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
-	  >
-	  </a-entity>
-
-	  <a-entity
-		id="Corner-Front-Left"
-		position="-24.0959 11.12971 -19.24716"
-		rotation="-90 0 0"
-		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
-	  >
-	  </a-entity>
-
-	  <a-entity
-		id="Corner-Front-Right"
-		position="24.06869 11.12971 -19.24716"
-		rotation="-90 0 0"
-		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
-	  >
-	  </a-entity>
-
-	  <a-entity
-		id="Corner-Back-Right"
-		position="24.06869 11.12971 19.29998"
-		rotation="-90 0 0"
-		light="angle: 90; color: #ffe4b5; distance: 15; intensity: 20; type: spot"
-	  >
-	  </a-entity>
-	  
-	  <!-- =========================
-		 CASH/GOLD/DIAMONDS/CHIPS
-	  ========================= -->
-	  
 	  
 
 	  <!-- =========================
@@ -513,12 +544,6 @@
 		 Replace these boxes later with final Cash, Gold, Diamond, and Casino Token models.
 	  ========================= -->
 
-	  <a-box
-		id="cash-bundle"
-		position="-4 1 -4"
-		color="green"
-		loot-item="itemname: Cash Bundle; unitValue: 100; amount: 1;"
-	  ></a-box>
 	  <a-box
 		id="gold-bar"
 		position="-2 1 -4"
