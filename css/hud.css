@@ -236,6 +236,79 @@
   text-transform: uppercase;
 }
 
+.end-rank-card {
+  width: min(900px, 86vw);
+  margin-top: clamp(46px, 7vh, 90px);
+  padding: clamp(18px, 2.2vw, 32px) clamp(22px, 3vw, 46px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 2px solid rgba(217, 165, 41, 0.75);
+  border-radius: clamp(8px, 0.8vw, 14px);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(217, 165, 41, 0.04),
+      rgba(217, 165, 41, 0.13),
+      rgba(217, 165, 41, 0.04)
+    ),
+    rgba(5, 5, 5, 0.58);
+
+  box-shadow:
+    0 0 28px rgba(0, 0, 0, 0.75),
+    0 0 22px rgba(217, 165, 41, 0.22),
+    inset 0 0 20px rgba(217, 165, 41, 0.08);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.end-rank-line {
+  width: min(620px, 72vw);
+  height: 2px;
+  margin-bottom: clamp(14px, 1.8vh, 24px);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--hud-gold),
+    transparent
+  );
+
+  box-shadow: 0 0 14px rgba(217, 165, 41, 0.55);
+}
+
+.end-rank-title {
+  color: var(--hud-gold);
+  font-size: clamp(24px, 3vw, 52px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 12px rgba(217, 165, 41, 0.65),
+    0 0 26px rgba(0, 0, 0, 0.9);
+}
+
+.end-rank-text {
+  max-width: 760px;
+  margin-top: clamp(12px, 1.5vh, 20px);
+
+  color: var(--hud-white);
+  font-size: clamp(18px, 1.65vw, 30px);
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1.35;
+
+  text-shadow:
+    0 0 10px rgba(0, 0, 0, 0.95),
+    0 0 18px rgba(255, 255, 255, 0.12);
+}
+
 /* =========================
    CASH PANEL
 ========================= */
@@ -581,7 +654,7 @@
 }
 
 .game-popup--token {
-  color: #ffd86b;
+  color: #b46cff;
 }
 
 .game-popup--money-loss,

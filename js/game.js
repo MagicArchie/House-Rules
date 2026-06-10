@@ -44,18 +44,18 @@ let securityAlertShown = false;
 let securityClosingAlertShown = false;
 
 const fortuneResults = [
-  { angle: 0, name: "BIG WIN", money: 2500, time: 0, tokenBack: false },
-  { angle: 30, name: "REFUND", money: 100, time: 0, tokenBack: false },
-  { angle: 60, name: "HOUSE CUT", money: -500, time: 0, tokenBack: false },
-  { angle: 90, name: "CURSED PRIZE", money: 3000, time: -45, tokenBack: false },
-  { angle: 120, name: "LUCKY PULL", money: 1000, time: 0, tokenBack: false },
-  { angle: 150, name: "TIME PENALTY", money: 0, time: -30, tokenBack: false },
-  { angle: 180, name: "SMALL WIN", money: 500, time: 0, tokenBack: false },
-  { angle: 210, name: "JACKPOT", money: 5000, time: 0, tokenBack: false },
-  { angle: 240, name: "SECURITY TAX", money: -1000, time: 0, tokenBack: false },
-  { angle: 270, name: "NOTHING", money: 0, time: 0, tokenBack: false },
-  { angle: 300, name: "SECOND CHANCE", money: 0, time: 0, tokenBack: true },
-  { angle: 330, name: "BAD LUCK", money: -250, time: 0, tokenBack: false },
+  { angle: 0, name: "BIG WIN", money: 5000, time: 0, tokenBack: false },
+  { angle: 30, name: "REFUND BONUS", money: 500, time: 0, tokenBack: false },
+  { angle: 60, name: "HOUSE CUT", money: -250, time: 0, tokenBack: false },
+  { angle: 90, name: "CURSED PRIZE", money: 6000, time: -30, tokenBack: false },
+  { angle: 120, name: "LUCKY PULL", money: 2500, time: 0, tokenBack: false },
+  { angle: 150, name: "TIME PENALTY", money: 1000, time: -20, tokenBack: false },
+  { angle: 180, name: "SMALL WIN", money: 1500, time: 0, tokenBack: false },
+  { angle: 210, name: "JACKPOT", money: 12000, time: 0, tokenBack: false },
+  { angle: 240, name: "SECURITY TAX", money: -500, time: 0, tokenBack: false },
+  { angle: 270, name: "SAFE PRIZE", money: 750, time: 0, tokenBack: false },
+  { angle: 300, name: "SECOND CHANCE", money: 1000, time: 0, tokenBack: true },
+  { angle: 330, name: "BAD LUCK", money: -100, time: 0, tokenBack: false },
 ];
 
 /* =========================
@@ -397,6 +397,92 @@ function animateTimerHit() {
   timerHUD.classList.add("timer-hit");
 }
 
+function getDynamicEnding(type) {
+  const escaped = type === "victory-money" || type === "victory-no-money";
+
+  if (escaped) {
+    if (playerMoney === 0) {
+      return {
+        title: "Broke Escape",
+        text: "You escaped... technically. Unfortunately, you forgot the money.",
+      };
+    }
+
+    if (playerMoney <= 999) {
+      return {
+        title: "Participation Trophy",
+        text: "The casino spent more cleaning the carpets than you managed to steal.",
+      };
+    }
+
+    if (playerMoney <= 4999) {
+      return {
+        title: "Small Time Crook",
+        text: "Not bad. The casino probably won't notice until tomorrow.",
+      };
+    }
+
+    if (playerMoney <= 9999) {
+      return {
+        title: "Lucky Night",
+        text: "You got in, got paid, and got out. A rare combination.",
+      };
+    }
+
+    if (playerMoney <= 24999) {
+      return {
+        title: "Professional Gambler",
+        text: "The house doesn't usually lose. Today it made an exception.",
+      };
+    }
+
+    if (playerMoney <= 49999) {
+      return {
+        title: "Casino Nightmare",
+        text: "Several managers have suddenly become unemployed.",
+      };
+    }
+
+    if (playerMoney <= 99999) {
+      return {
+        title: "High Roller",
+        text: "The casino would like to politely ask for its money back.",
+      };
+    }
+
+    return {
+      title: "Legend",
+      text: "The House Always Wins... except for that one time.",
+    };
+  }
+
+  if (playerMoney === 0) {
+    return {
+      title: "Empty Handed",
+      text: "Caught. Broke. Embarrassing.",
+    };
+  }
+
+  if (playerMoney <= 9999) {
+    return {
+      title: "Almost Had It",
+      text: "Security thanks you for gathering everything into one convenient pile.",
+    };
+  }
+
+  if (playerMoney <= 49999) {
+    return {
+      title: "So Close",
+      text: "You were only a few steps away from becoming somebody else's problem.",
+    };
+  }
+
+  return {
+    title: "House Wins",
+    text: "You beat the odds, robbed the vault, and then remembered the house always wins.",
+  };
+}
+
 function endGame(type) {
   if (gameEnded) return;
 
@@ -421,6 +507,8 @@ function endGame(type) {
   const endScreen = document.querySelector("#end-screen");
   const endTitle = document.querySelector("#end-title");
   const endMessage = document.querySelector("#end-message");
+  const endRankTitle = document.querySelector("#end-rank-title");
+  const endRankText = document.querySelector("#end-rank-text");
 
   if (!endScreen || !endTitle || !endMessage) return;
 
@@ -431,17 +519,28 @@ function endGame(type) {
       "You got away with $" + playerMoney.toLocaleString();
   }
 
-  if (type === "victory-no-money") {
-    endTitle.textContent = "YOU ESCAPED";
-    endTitle.className = "end-title end-title--victory";
-    endMessage.textContent = "Well, that is sad.";
-  }
+	if (type === "victory-no-money") {
+	  endTitle.textContent = "YOU ESCAPED";
+	  endTitle.className = "end-title end-title--victory";
+	  endMessage.textContent =
+		"You got away with $" + playerMoney.toLocaleString();
+	}
 
   if (type === "defeat") {
     endTitle.textContent = "CAUGHT";
     endTitle.className = "end-title end-title--defeat";
     endMessage.textContent =
       "You were caught with $" + playerMoney.toLocaleString();
+  }
+
+  const dynamicEnding = getDynamicEnding(type);
+
+  if (endRankTitle) {
+    endRankTitle.textContent = dynamicEnding.title;
+  }
+
+  if (endRankText) {
+    endRankText.textContent = '"' + dynamicEnding.text + '"';
   }
 
   endScreen.classList.remove("hud-hidden");
@@ -868,16 +967,24 @@ function useFortuneWheel() {
   const result = fortuneResults[resultIndex];
 
   const baseSpins = 360 * 8;
-  const finalRotation = baseSpins + result.angle;
 
-  if (wheel) {
-    wheel.setAttribute("animation__spin", {
-      property: "rotation",
-      to: `0 0 ${finalRotation}`,
-      dur: 7000,
-      easing: "easeOutQuint",
-    });
-  }
+	if (wheel) {
+	  const currentRotation = wheel.getAttribute("rotation") || { x: 0, y: 0, z: 0 };
+	  const currentZ = currentRotation.z || 0;
+
+	  const normalizedZ = ((currentZ % 360) + 360) % 360;
+	  const angleToResult = ((result.angle - normalizedZ) + 360) % 360;
+
+	  const finalRotation = currentZ + baseSpins + angleToResult;
+
+	  wheel.removeAttribute("animation__spin");
+	  wheel.setAttribute("animation__spin", {
+		property: "rotation",
+		to: `0 0 ${finalRotation}`,
+		dur: 7000,
+		easing: "easeOutQuint",
+	  });
+	}
 
   setTimeout(function () {
     applyFortuneResult(result);
